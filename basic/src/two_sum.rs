@@ -1,5 +1,7 @@
+use core::hash::Hash;
 use std::collections::HashMap;
 use std::ops::Add;
+use std::ops::Sub;
 
 fn two_sum_with_map(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut m: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
@@ -46,24 +48,19 @@ fn two_sum_by_loop(nums: Vec<i32>, target: i32) -> Vec<i32> {
 }
 
 #[warn(dead_code)]
-// fn two_sum_generic< T>(nums: Vec<T>, target: T) -> Vec<T>
-// where
-//     T: std::cmp::PartialEq+ std::ops::Add<Output = T>,
-// {
-//     for (index, num) in nums.iter().enumerate() {
-//         for (index2, num2) in nums.iter().enumerate() {
-//             if index == index2 {
-//                 continue;
-//             }
-//             // let sum = num+num2;
-//             // if (*num+*num2).eq(&target) {
-//             //     return vec![index as T, index2 as T];
-//                 // return Vec::new();
-//             // }
-//         }
-//     }
-//     return Vec::new();
-// }
+fn two_sum_generic<T>(nums: Vec<T>, target: T) -> Vec<T>
+where
+    T: PartialEq + Eq + Hash + Sub + Sub<Output = T>+ Copy+ From<usize>,
+{
+    let mut m: HashMap<T, usize> = HashMap::new();
+    for (idx, &n) in nums.iter().enumerate() {
+        match m.get(&(target - n)) {
+            Some(&x) => return vec![T::from(x), T::from(idx)],
+            None => m.insert(n, idx),
+        };
+    }
+    return vec![];
+}
 #[test]
 fn two_sum_test() {
     assert_eq!(vec![1, 2], two_sum_by_loop(vec![3, 4, 5], 9));
@@ -75,6 +72,8 @@ fn two_sum_test() {
     assert_eq!(vec![1, 2], two_sum_with_map(vec![3, 4, 5], 9));
     assert_eq!(vec![0, 1], two_sum_with_map(vec![3, 3], 6));
     assert_eq!(vec![1, 2], two_sum_with_map(vec![3, 2, 4], 6));
+    assert_eq!(vec![1, 2], two_sum_generic(vec![3, 2, 4], 6));
+    assert_eq!(vec![0, 1], two_sum_generic(vec![3, 3], 6));
 }
 
 #[test]
