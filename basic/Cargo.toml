@@ -6,3 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+#eager_log = { path = "/Users/chandlerpan/Documents/GitHub/rust_demo/elog" }
+eager_log = "*"

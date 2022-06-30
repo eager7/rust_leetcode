@@ -1,8 +1,8 @@
 use core::hash::Hash;
+use eager_log::*;
 use std::collections::HashMap;
 use std::ops::Add;
 use std::ops::Sub;
-
 fn two_sum_with_map(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut m: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
     for (index, num) in nums.iter().enumerate() {
@@ -50,7 +50,7 @@ fn two_sum_by_loop(nums: Vec<i32>, target: i32) -> Vec<i32> {
 #[warn(dead_code)]
 fn two_sum_generic<T>(nums: Vec<T>, target: T) -> Vec<T>
 where
-    T: PartialEq + Eq + Hash + Sub + Sub<Output = T>+ Copy+ From<usize>,
+    T: PartialEq + Eq + Hash + Sub + Sub<Output = T> + Copy + From<usize>,
 {
     let mut m: HashMap<T, usize> = HashMap::new();
     for (idx, &n) in nums.iter().enumerate() {
@@ -97,6 +97,6 @@ fn vec_to_map2() {
         teams.into_iter().zip(initial_scores.into_iter()).collect();
     println!("{:?}", scores);
     for (k, v) in scores.iter() {
-        println!("{:?},{:?}", k, v);
+        trace!("{:?},{:?}", k, v);
     }
 }
