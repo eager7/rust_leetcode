@@ -1,4 +1,6 @@
 #![feature(type_ascription)]
+extern crate core;
+
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
@@ -14,3 +16,4 @@ mod tests {
     }
 }
 mod two_sum;
+mod add_two_number;
