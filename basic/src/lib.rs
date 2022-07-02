@@ -15,5 +15,5 @@ mod tests {
         assert_eq!(result, 4);
     }
 }
-mod two_sum;
 mod add_two_number;
+mod two_sum;
