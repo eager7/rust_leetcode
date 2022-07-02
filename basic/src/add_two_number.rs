@@ -20,7 +20,7 @@ pub fn add_two_numbers(
 ) -> Option<Box<ListNode>> {
     let mut carry = 0;
     let mut result: Option<Box<ListNode>> = None; //: Option<Box<ListNode>>
-    let mut current = &mut result;
+    let mut current = &mut result; // 获取一个可变引用，表示可以改变result的值。current也需要可变，用于修改指向
 
     let mut f1 = &l1;
     let mut f2 = &l2;
@@ -45,23 +45,22 @@ pub fn add_two_numbers(
                 n
             }
         };
-        let mut node = Some(Box::new(ListNode::new(val)));
-
         *current = Some(Box::new(ListNode::new(val)));
-        info!("carry:{}, value:{}, node:{:?}", carry, val, node);
+        info!("carry:{}, value:{}", carry, val);
         current = &mut current.as_mut().unwrap().next;
 
         f1 = match f1 {
-            Some(ref x) => &(x.next),
+            Some(x) => &(x.next),
             None => &None,
         };
         f2 = match f2 {
-            Some(ref x) => &(x.next),
+            Some(x) => &(x.next),
             None => &None,
         };
     }
     return result;
 }
+
 pub fn add_two_numbers2(
     l1: Option<Box<ListNode>>,
     l2: Option<Box<ListNode>>,
