@@ -1,6 +1,3 @@
-#![feature(type_ascription)]
-extern crate core;
-
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
@@ -15,7 +12,7 @@ mod tests {
         assert_eq!(result, 4);
     }
 }
-mod add_two_number;
-mod length_of_longest_substring;
-mod two_sum;
-mod find_median_sorted_arrays;
+
+mod quick;
+mod contains_duplicate;
+mod max_sub_array;

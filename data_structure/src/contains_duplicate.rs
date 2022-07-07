@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 /// 给你一个整数数组 nums 。如果任一值在数组中出现 至少两次 ，返回 true ；如果数组中每个元素互不相同，返回 false 。
 /// 示例 1：
@@ -23,6 +23,10 @@ pub fn contains_duplicate(nums: Vec<i32>) -> bool {
         };
     }
     return false;
+}
+pub fn contains_duplicate2(nums: Vec<i32>) -> bool {
+    let mut m: HashSet<i32> = HashSet::new();
+    nums.iter().any(|&x| !m.insert(x))
 }
 
 #[test]
