@@ -26,19 +26,35 @@ use std::cmp::Ordering;
 ///
 /// 进阶：如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的 分治法 求解。
 pub fn max_sub_array(nums: Vec<i32>) -> i32 {
-    let mut max = nums[0];
-    let mut previous = nums[0];
+    let mut max = 0;
+    let mut previous = 0;
 
-    nums.iter().skip(1).for_each(|&n| {
+    nums.iter().for_each(|&n| {
         previous = n.max(previous + n);
         max = max.max(previous);
     });
     return max;
 }
 
+pub fn max_sub_array2(nums: Vec<i32>) -> i32 {
+    let mut max = 0;
+    let mut previous = 0;
+
+    nums.iter().for_each(|&n| {
+        if previous > 0 {
+            previous = n + previous;
+        } else {
+            previous = n;
+        }
+        max = max.max(previous);
+    });
+    return max;
+}
+
+/// https://leetcode.cn/problems/maximum-subarray/solution/zui-da-zi-xu-he-by-leetcode-solution/
 #[test]
 fn test_max_sub_array() {
-    // assert_eq!(6, max_sub_array(vec![-2, 1, -3, 4, -1, 2, 1, -5, 4]));
-    // assert_eq!(1, max_sub_array(vec![1]));
-    assert_eq!(2, max_sub_array(vec![-3, 1, -4, 2]));
+    assert_eq!(6, max_sub_array(vec![-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+    assert_eq!(1, max_sub_array(vec![1]));
+    assert_eq!(2, max_sub_array(vec![-6, 1, -6, -4, 2]));
 }
