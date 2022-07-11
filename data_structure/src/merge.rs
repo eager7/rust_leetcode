@@ -45,17 +45,20 @@ use std::process::id;
 /// 链接：https://leetcode.cn/problems/merge-sorted-array
 /// 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 pub fn merge2(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
-    let mut i = m - 1;
-    let mut j = n - 1;
-    let m = m as usize;
     let n = n as usize;
-    for k in (0..m + n).rev() {
-        if j < 0 || (i >= 0 && nums1[i as usize] > nums2[j as usize]) {
-            nums1[k] = nums1[i as usize];
-            i -= 1;
+    let mut idx = (nums1.len() - 1) as usize;
+    let mut n2 = nums2.pop();
+    while idx >= n {
+        if let Some(x) = n2 {
+            if x > nums1[idx - n] {
+                n2 = nums2.pop();
+                nums1[idx] = x;
+            } else {
+                nums1[idx] = nums1[idx - n]
+            }
+            idx -= 1;
         } else {
-            nums1[k] = nums2[j as usize];
-            j -= 1;
+            break;
         }
     }
 }
