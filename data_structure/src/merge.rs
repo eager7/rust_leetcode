@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-use std::process::id;
 
 /// 给你两个按 非递减顺序 排列的整数数组nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。
 ///
@@ -47,24 +45,35 @@ use std::process::id;
 pub fn merge2(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
     let n = n as usize;
     let mut idx = (nums1.len() - 1) as usize;
+    let mut offset = 0;
+    if idx >= n {
+        offset = (idx - n) as usize;
+    }
     let mut n2 = nums2.pop();
-    while idx >= n {
-        if let Some(x) = n2 {
-            if x > nums1[idx - n] {
-                n2 = nums2.pop();
-                nums1[idx] = x;
-            } else {
-                nums1[idx] = nums1[idx - n]
-            }
-            idx -= 1;
+    while n2 != None {
+        let x = n2.unwrap();
+        if x > nums1[offset] {
+            n2 = nums2.pop();
+            nums1[idx] = x;
         } else {
-            break;
+            nums1[idx] = nums1[offset];
+            if offset != 0 {
+                offset -= 1;
+            }
+        }
+        if idx != 0 {
+            idx -= 1;
         }
     }
 }
 
 #[test]
 fn merge_test() {
+    let mut nums1 = vec![2,0];
+    let mut nums2 = vec![1];
+    merge2(&mut nums1, 1, &mut nums2, 1);
+    assert_eq!(nums1, vec![1, 2]);
+
     let mut nums1 = vec![0];
     let mut nums2 = vec![1];
     merge2(&mut nums1, 0, &mut nums2, 1);
