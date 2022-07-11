@@ -17,3 +17,4 @@ mod quick;
 mod contains_duplicate;
 mod max_sub_array;
 mod merge;
+mod intersect;
